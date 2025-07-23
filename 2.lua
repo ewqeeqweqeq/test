@@ -68,11 +68,7 @@ local function equipKnifeAndStab()
         if stabEvent and stabEvent:IsA("RemoteEvent") then
             local args = {"Slash"}
             stabEvent:FireServer(unpack(args))
-        else
-            warn("Stab event not found in Knife tool!")
         end
-    else
-        warn("Knife tool not found in Backpack!")
     end
 end
 

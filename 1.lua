@@ -177,7 +177,7 @@ while true do
         local fullLabel
         local eggFullVisible = false
         pcall(function()
-            fullLabel = player.PlayerGui.MainGUI.Game.CoinBags.Container.BeachBall:FindFirstChild("Full") or player.PlayerGui.MainGUI.Game.CoinBags.Container.BeachBall:FindFirstChild("Full")
+            fullLabel = player.PlayerGui.MainGUI.Game.CoinBags.Container.BeachBall:FindFirstChild("Full")
             eggFullVisible = fullLabel and fullLabel.Visible
         end)
 

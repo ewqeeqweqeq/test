@@ -200,9 +200,9 @@ while true do
         local targetCoin = findCoinServer()
         if targetCoin then
             currentCharacter:SetPrimaryPartCFrame(targetCoin.CFrame * CFrame.new(0, 4, 0))
-            task.wait(1)
+            task.wait(0.5)
             currentCharacter:SetPrimaryPartCFrame(anchorPart.CFrame + Vector3.new(0, 5, 0))
-            task.wait(2)
+            task.wait(0.5)
         else
             currentCharacter:SetPrimaryPartCFrame(anchorPart.CFrame + Vector3.new(0, 5, 0))
         end

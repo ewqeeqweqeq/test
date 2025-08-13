@@ -159,6 +159,8 @@ while true do
 
     local success, err = pcall(function()
         createAnchorPart()
+        startAntifling()
+        idlePlayer()
         if not currentCharacter or not currentCharacter.Parent then return end
         if not currentCharacter.PrimaryPart then
             local root = waitForHumanoidRootPart(currentCharacter, 10)

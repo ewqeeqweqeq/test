@@ -119,6 +119,27 @@ local function findCoinServer()
     return nil
 end
 
+local function DeleteYachtTrapSwim()
+    local function checkAndDeleteWater()
+        while true do
+            local path = workspace:FindFirstChild("Yacht")
+            
+            if path then
+                local interactive = path:FindFirstChild("Intereactive")
+                if interactive then
+                    local water = interactive:FindFirstChild("Water")
+                    if water then
+                        water:Destroy()
+                    end
+                end
+            end
+
+            wait(1)
+        end
+    end
+    spawn(checkAndDeleteWater)
+end
+
 local function waitForHumanoidRootPart(character, timeout)
     local root = character:FindFirstChild("HumanoidRootPart")
     if root then return root end
@@ -153,6 +174,7 @@ Workspace.DescendantAdded:Connect(noclipPart)
 idlePlayer()
 startAntifling()
 createAnchorPart()
+DeleteYachtTrapSwim()
 
 while true do
     task.wait(1)
@@ -202,7 +224,7 @@ while true do
         local targetCoin = findCoinServer()
         if targetCoin then
             currentCharacter:SetPrimaryPartCFrame(targetCoin.CFrame * CFrame.new(0, 4, 0))
-            task.wait(0.5)
+            task.wait(0.7)
             currentCharacter:SetPrimaryPartCFrame(anchorPart.CFrame + Vector3.new(0, 5, 0))
             task.wait(0.5)
         else

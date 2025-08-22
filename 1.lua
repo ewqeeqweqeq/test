@@ -153,7 +153,7 @@ local function AutoPrestige()
             if profile then
                 local level = profile["Level"]
                 local prestige = profile["Prestige"]
-                if level == 30 and prestige ~= 10 then
+                if level == 100 and prestige ~= 10 then
                     prestigeRemote:FireServer()
                 end
             end

@@ -4,7 +4,7 @@ local RunService = game:GetService("RunService")
 local Workspace = game:GetService("Workspace")
 local VirtualUser = game:GetService("VirtualUser")
 local player = Players.LocalPlayer
-local remotes = replicatedStorage:WaitForChild("Remotes")
+local remotes = ReplicatedStorage:WaitForChild("Remotes")
 local playerProfileRemote = remotes:WaitForChild("Misc"):WaitForChild("GetPlayerProfile")
 local prestigeRemote = remotes:WaitForChild("Inventory"):WaitForChild("Prestige")
 

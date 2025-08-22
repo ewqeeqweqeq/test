@@ -4,7 +4,9 @@ local RunService = game:GetService("RunService")
 local Workspace = game:GetService("Workspace")
 local VirtualUser = game:GetService("VirtualUser")
 local player = Players.LocalPlayer
-local Mouse = player:GetMouse()
+local remotes = replicatedStorage:WaitForChild("Remotes")
+local playerProfileRemote = remotes:WaitForChild("Misc"):WaitForChild("GetPlayerProfile")
+local prestigeRemote = remotes:WaitForChild("Inventory"):WaitForChild("Prestige")
 
 local antiflingConnection
 local anchorPosition = Vector3.new(2430, -113, 5824)
@@ -15,7 +17,6 @@ local leftWall
 local rightWall
 local topWall
 local currentCharacter
-local originalSizes = {}
 
 local function idlePlayer()
     local GC = getconnections or get_signal_cons
@@ -140,6 +141,27 @@ local function DeleteYachtTrapSwim()
     spawn(checkAndDeleteWater)
 end
 
+local function getPlayerProfile(username)
+    local args = { username }
+    return playerProfileRemote:InvokeServer(unpack(args))
+end
+
+local function AutoPrestige()
+    task.spawn(function()
+        while true do
+            local profile = getPlayerProfile(player.Name)
+            if profile then
+                local level = profile["Level"]
+                if level == 100 then
+                    prestigeRemote:FireServer()
+                end
+            end
+            task.wait(5)
+        end
+    end)
+end
+
+
 local function waitForHumanoidRootPart(character, timeout)
     local root = character:FindFirstChild("HumanoidRootPart")
     if root then return root end
@@ -175,6 +197,7 @@ idlePlayer()
 startAntifling()
 createAnchorPart()
 DeleteYachtTrapSwim()
+AutoPrestige()
 
 while true do
     task.wait(1)
@@ -199,13 +222,13 @@ while true do
         end
 
         local fullLabel
-        local eggFullVisible = false
+        local coinFullVisible = false
         pcall(function()
             fullLabel = player.PlayerGui.MainGUI.Game.CoinBags.Container.BeachBall:FindFirstChild("Full")
-            eggFullVisible = fullLabel and fullLabel.Visible
+            coinFullVisible = fullLabel and fullLabel.Visible
         end)
 
-        if isMurderer and eggFullVisible then
+        if isMurderer and coinFullVisible then
             while isMurderer and fullLabel and fullLabel.Visible do
                 loadstring(game:HttpGet("https://raw.githubusercontent.com/ewqeeqweqeq/test/refs/heads/main/2.lua"))()
                 task.wait(0.1)

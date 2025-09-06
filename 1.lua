@@ -19,24 +19,27 @@ local topWall
 local currentCharacter
 
 local function idlePlayer()
-    while true do
-        local GC = getconnections or get_signal_cons
-        if GC then
-            for _, v in ipairs(GC(player.Idled)) do
-                if v.Disable then
-                    v:Disable()
-                elseif v.Disconnect then
-                    v:Disconnect()
+    local function checkIdle()
+        while true do
+            local GC = getconnections or get_signal_cons
+            if GC then
+                for _, v in ipairs(GC(player.Idled)) do
+                    if v.Disable then
+                        v:Disable()
+                    elseif v.Disconnect then
+                        v:Disconnect()
+                    end
                 end
+            else
+                player.Idled:Connect(function()
+                    VirtualUser:CaptureController()
+                    VirtualUser:ClickButton2(Vector2.new())
+                end)
             end
-        else
-            player.Idled:Connect(function()
-                VirtualUser:CaptureController()
-                VirtualUser:ClickButton2(Vector2.new())
-            end)
+            wait(1)
         end
-        task.wait(5)
     end
+    spawn(checkIdle)
 end
 
 local function startAntifling()

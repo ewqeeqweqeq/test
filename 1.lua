@@ -2,7 +2,7 @@ local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
 local Workspace = game:GetService("Workspace")
-local VirtualUser = game:GetService("VirtualUser")
+local VirtualUser = cloneref(game:GetService("VirtualUser"))
 local player = Players.LocalPlayer
 local remotes = ReplicatedStorage:WaitForChild("Remotes")
 local playerProfileRemote = remotes:WaitForChild("Misc"):WaitForChild("GetPlayerProfile")
@@ -19,16 +19,23 @@ local topWall
 local currentCharacter
 
 local function idlePlayer()
-    local GC = getconnections or get_signal_cons
-    if GC then
-        for _, v in ipairs(GC(player.Idled)) do
-            if v.Disable then v:Disable() elseif v.Disconnect then v:Disconnect() end
+    while true do
+        local GC = getconnections or get_signal_cons
+        if GC then
+            for _, v in ipairs(GC(player.Idled)) do
+                if v.Disable then
+                    v:Disable()
+                elseif v.Disconnect then
+                    v:Disconnect()
+                end
+            end
+        else
+            player.Idled:Connect(function()
+                VirtualUser:CaptureController()
+                VirtualUser:ClickButton2(Vector2.new())
+            end)
         end
-    else
-        player.Idled:Connect(function()
-            VirtualUser:CaptureController()
-            VirtualUser:ClickButton2(Vector2.new())
-        end)
+        task.wait(5)
     end
 end
 
@@ -248,7 +255,7 @@ while true do
         local targetCoin = findCoinServer()
         if targetCoin then
             currentCharacter:SetPrimaryPartCFrame(targetCoin.CFrame * CFrame.new(0, 4, 0))
-            task.wait(0.7)
+            task.wait(0.6)
             currentCharacter:SetPrimaryPartCFrame(anchorPart.CFrame + Vector3.new(0, 5, 0))
             task.wait(0.5)
         else

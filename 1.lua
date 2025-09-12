@@ -25,83 +25,97 @@ local function idlePlayer()
                 VirtualUser:CaptureController()
                 VirtualUser:ClickButton2(Vector2.new())
             end)
-            wait(1)
+            task.wait(1)
         end
     end
-    spawn(checkIdle)
+    task.spawn(checkIdle)
 end
 
 local function startAntifling()
-    if antiflingConnection then antiflingConnection:Disconnect() end
-    antiflingConnection = RunService.Heartbeat:Connect(function()
-        for _, p in pairs(Players:GetPlayers()) do
-            if p ~= player and p.Character then
-                for _, part in ipairs(p.Character:GetChildren()) do
-                    if part:IsA("BasePart") then
-                        part.CanCollide = false
+    local function antifling()
+        while true do
+            if antiflingConnection then
+                antiflingConnection:Disconnect()
+            end
+            antiflingConnection = RunService.Heartbeat:Connect(function()
+                for _, p in ipairs(Players:GetPlayers()) do
+                    if p ~= player and p.Character then
+                        for _, part in ipairs(p.Character:GetChildren()) do
+                            if part:IsA("BasePart") and part.CanCollide then
+                                part.CanCollide = false
+                            end
+                        end
                     end
                 end
-            end
+            end)
+            task.wait(1)
         end
-    end)
+    end
+    task.spawn(antifling)
 end
 
 local function createAnchorPart()
-    if not anchorPart or not anchorPart.Parent then
-        anchorPart = Instance.new("Part")
-        anchorPart.Name = "AnchorPart"
-        anchorPart.Size = Vector3.new(70, 1, 64)
-        anchorPart.Transparency = 1
-        anchorPart.Anchored = true
-        anchorPart.CanCollide = true
-        anchorPart.CFrame = CFrame.new(2427, -113, 5830, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-        anchorPart.Parent = Workspace
+    local function anchorpart()
+        while true do
+            if not anchorPart or not anchorPart.Parent then
+                anchorPart = Instance.new("Part")
+                anchorPart.Name = "AnchorPart"
+                anchorPart.Size = Vector3.new(70, 1, 64)
+                anchorPart.Transparency = 1
+                anchorPart.Anchored = true
+                anchorPart.CanCollide = true
+                anchorPart.CFrame = CFrame.new(2427, -113, 5830, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+                anchorPart.Parent = Workspace
 
-        topWall = Instance.new("Part")
-        topWall.Name = "TopWall"
-        topWall.Size = Vector3.new(68, 1, 62)
-        topWall.Transparency = 1
-        topWall.Anchored = true
-        topWall.CanCollide = true
-        topWall.CFrame = CFrame.new(2427, -93.5, 5830, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-        topWall.Parent = Workspace
+                topWall = Instance.new("Part")
+                topWall.Name = "TopWall"
+                topWall.Size = Vector3.new(68, 1, 62)
+                topWall.Transparency = 1
+                topWall.Anchored = true
+                topWall.CanCollide = true
+                topWall.CFrame = CFrame.new(2427, -93.5, 5830, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+                topWall.Parent = Workspace
 
-        frontWall = Instance.new("Part")
-        frontWall.Name = "FrontWall"
-        frontWall.Size = Vector3.new(68, 1, 20)
-        frontWall.Transparency = 1
-        frontWall.Anchored = true
-        frontWall.CanCollide = true
-        frontWall.CFrame = CFrame.new(2427, -103, 5798.5) * CFrame.Angles(math.rad(90), 0, 0)
-        frontWall.Parent = Workspace
+                frontWall = Instance.new("Part")
+                frontWall.Name = "FrontWall"
+                frontWall.Size = Vector3.new(68, 1, 20)
+                frontWall.Transparency = 1
+                frontWall.Anchored = true
+                frontWall.CanCollide = true
+                frontWall.CFrame = CFrame.new(2427, -103, 5798.5) * CFrame.Angles(math.rad(90), 0, 0)
+                frontWall.Parent = Workspace
 
-        backWall = Instance.new("Part")
-        backWall.Name = "BackWall"
-        backWall.Size = Vector3.new(68, 1, 20)
-        backWall.Transparency = 1
-        backWall.Anchored = true
-        backWall.CanCollide = true
-        backWall.CFrame = CFrame.new(2427, -103, 5861.5) * CFrame.Angles(math.rad(-90), 0, 0)
-        backWall.Parent = Workspace
+                backWall = Instance.new("Part")
+                backWall.Name = "BackWall"
+                backWall.Size = Vector3.new(68, 1, 20)
+                backWall.Transparency = 1
+                backWall.Anchored = true
+                backWall.CanCollide = true
+                backWall.CFrame = CFrame.new(2427, -103, 5861.5) * CFrame.Angles(math.rad(-90), 0, 0)
+                backWall.Parent = Workspace
 
-        leftWall = Instance.new("Part")
-        leftWall.Name = "LeftWall"
-        leftWall.Size = Vector3.new(20, 1, 64)
-        leftWall.Transparency = 1
-        leftWall.Anchored = true
-        leftWall.CanCollide = true
-        leftWall.CFrame = CFrame.new(2392.5, -103, 5830) * CFrame.Angles(0, 0, math.rad(-90))
-        leftWall.Parent = Workspace
+                leftWall = Instance.new("Part")
+                leftWall.Name = "LeftWall"
+                leftWall.Size = Vector3.new(20, 1, 64)
+                leftWall.Transparency = 1
+                leftWall.Anchored = true
+                leftWall.CanCollide = true
+                leftWall.CFrame = CFrame.new(2392.5, -103, 5830) * CFrame.Angles(0, 0, math.rad(-90))
+                leftWall.Parent = Workspace
 
-        rightWall = Instance.new("Part")
-        rightWall.Name = "RightWall"
-        rightWall.Size = Vector3.new(20, 1, 64)
-        rightWall.Transparency = 1
-        rightWall.Anchored = true
-        rightWall.CanCollide = true
-        rightWall.CFrame = CFrame.new(2461.5, -103, 5830) * CFrame.Angles(0, 0, math.rad(90))
-        rightWall.Parent = Workspace
+                rightWall = Instance.new("Part")
+                rightWall.Name = "RightWall"
+                rightWall.Size = Vector3.new(20, 1, 64)
+                rightWall.Transparency = 1
+                rightWall.Anchored = true
+                rightWall.CanCollide = true
+                rightWall.CFrame = CFrame.new(2461.5, -103, 5830) * CFrame.Angles(0, 0, math.rad(90))
+                rightWall.Parent = Workspace
+            end
+            task.wait(1)
+        end
     end
+    task.spawn(anchorpart)
 end
 
 
@@ -134,10 +148,10 @@ local function DeleteYachtTrapSwim()
                 end
             end
 
-            wait(1)
+            task.wait(1)
         end
     end
-    spawn(checkAndDeleteWater)
+    task.spawn(checkAndDeleteWater)
 end
 
 local function getPlayerProfile(username)
@@ -203,9 +217,6 @@ while true do
     task.wait(1)
 
     local success, err = pcall(function()
-        createAnchorPart()
-        startAntifling()
-        idlePlayer()
         if not currentCharacter or not currentCharacter.Parent then return end
         if not currentCharacter.PrimaryPart then
             local root = waitForHumanoidRootPart(currentCharacter, 10)

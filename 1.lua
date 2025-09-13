@@ -112,7 +112,7 @@ local function createAnchorPart()
                 rightWall.CFrame = CFrame.new(2461.5, -103, 5830) * CFrame.Angles(0, 0, math.rad(90))
                 rightWall.Parent = Workspace
             end
-            task.wait(3)
+            task.wait(5)
         end
     end
     task.spawn(anchorpart)
@@ -148,7 +148,7 @@ local function DeleteYachtTrapSwim()
                 end
             end
 
-            task.wait(3)
+            task.wait(5)
         end
     end
     task.spawn(checkAndDeleteWater)
@@ -170,7 +170,7 @@ local function AutoPrestige()
                     prestigeRemote:FireServer()
                 end
             end
-            task.wait(5)
+            task.wait(8)
         end
     end)
 end

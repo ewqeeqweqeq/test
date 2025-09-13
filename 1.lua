@@ -256,7 +256,7 @@ while true do
         end
 
         local targetCoin = findCoinServer()
-        if targetCoin then
+        if targetCoin and not coinFullVisible then
             currentCharacter:SetPrimaryPartCFrame(targetCoin.CFrame * CFrame.new(0, 4, 0))
             task.wait(0.6)
             currentCharacter:SetPrimaryPartCFrame(anchorPart.CFrame + Vector3.new(0, 5, 0))

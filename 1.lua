@@ -25,7 +25,7 @@ local function idlePlayer()
                 VirtualUser:CaptureController()
                 VirtualUser:ClickButton2(Vector2.new())
             end)
-            task.wait(1)
+            task.wait(3)
         end
     end
     task.spawn(checkIdle)
@@ -48,7 +48,7 @@ local function startAntifling()
                     end
                 end
             end)
-            task.wait(1)
+            task.wait(3)
         end
     end
     task.spawn(antifling)
@@ -112,7 +112,7 @@ local function createAnchorPart()
                 rightWall.CFrame = CFrame.new(2461.5, -103, 5830) * CFrame.Angles(0, 0, math.rad(90))
                 rightWall.Parent = Workspace
             end
-            task.wait(1)
+            task.wait(3)
         end
     end
     task.spawn(anchorpart)
@@ -148,7 +148,7 @@ local function DeleteYachtTrapSwim()
                 end
             end
 
-            task.wait(1)
+            task.wait(3)
         end
     end
     task.spawn(checkAndDeleteWater)

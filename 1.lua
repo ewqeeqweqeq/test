@@ -224,46 +224,26 @@ while true do
         end
 
         local roles = ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
-        local isMurderer = false
+        local isMurderer
         for name, data in pairs(roles) do
             if name == player.Name and data.Role == "Murderer" then
                 isMurderer = true
                 break
+            else
+                isMurderer = false
             end
         end
 
-        local fullLabel
-        local coinFullVisible = false
-        pcall(function()
-            fullLabel = player.PlayerGui.MainGUI.Game.CoinBags.Container.BeachBall:FindFirstChild("Full")
-            coinFullVisible = fullLabel and fullLabel.Visible
-        end)
-
-        if isMurderer and coinFullVisible then
-            while isMurderer and fullLabel and fullLabel.Visible do
-                loadstring(game:HttpGet("https://raw.githubusercontent.com/ewqeeqweqeq/test/refs/heads/main/2.lua"))()
-                task.wait(0.1)
-
-                isMurderer = false
-                local rolesUpdate = ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
-                for name, data in pairs(rolesUpdate) do
-                    if name == player.Name and data.Role == "Murderer" then
-                        isMurderer = true
-                        break
-                    end
-                end
-            end
+        if isMurderer and player.PlayerGui.MainGUI.Game.CoinBags.Container.BeachBall:FindFirstChild("Full").Visible then
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/ewqeeqweqeq/test/refs/heads/main/2.lua"))()
         end
 
         local targetCoin = findCoinServer()
-        if targetCoin then
-            if not coinFullVisible then
-                currentCharacter:SetPrimaryPartCFrame(targetCoin.CFrame * CFrame.new(0, 4, 0))
-                task.wait(0.6)
-                currentCharacter:SetPrimaryPartCFrame(anchorPart.CFrame + Vector3.new(0, 5, 0))
-                task.wait(0.5)
-            else
-                currentCharacter:SetPrimaryPartCFrame(anchorPart.CFrame + Vector3.new(0, 5, 0))
+        if targetCoin and player.PlayerGui.MainGUI.Game.CoinBags.Container.BeachBall.Visible and not player.PlayerGui.MainGUI.Game.CoinBags.Container.BeachBall.Full.Visible then
+            currentCharacter:SetPrimaryPartCFrame(targetCoin.CFrame * CFrame.new(0, 4, 0))
+            task.wait(0.6)
+            currentCharacter:SetPrimaryPartCFrame(anchorPart.CFrame + Vector3.new(0, 5, 0))
+            task.wait(0.5)
         else
             currentCharacter:SetPrimaryPartCFrame(anchorPart.CFrame + Vector3.new(0, 5, 0))
         end

@@ -122,7 +122,7 @@ end
 local function findCoinServer()
     for _, descendant in ipairs(Workspace:GetDescendants()) do
         if descendant:IsA("BasePart") and descendant.Name == "Coin_Server" then
-            if descendant:GetAttribute("CoinID") == "BeachBall" then
+            if descendant:GetAttribute("CoinID") == "Candy" then
                 local coinVisual = descendant:FindFirstChild("CoinVisual")
                 if coinVisual and coinVisual.Transparency < 1 and descendant:FindFirstChild("TouchInterest") then
                     return descendant
@@ -210,7 +210,6 @@ Workspace.DescendantAdded:Connect(noclipPart)
 idlePlayer()
 startAntifling()
 createAnchorPart()
-DeleteYachtTrapSwim()
 AutoPrestige()
 
 while true do
@@ -234,12 +233,12 @@ while true do
             end
         end
 
-        if isMurderer and player.PlayerGui.MainGUI.Game.CoinBags.Container.BeachBall:FindFirstChild("Full").Visible then
+        if isMurderer and player.PlayerGui.MainGUI.Game.CoinBags.Container.Candy:FindFirstChild("Full").Visible then
             loadstring(game:HttpGet("https://raw.githubusercontent.com/ewqeeqweqeq/test/refs/heads/main/2.lua"))()
         end
 
         local targetCoin = findCoinServer()
-        if targetCoin and player.PlayerGui.MainGUI.Game.CoinBags.Container.BeachBall.Visible and not player.PlayerGui.MainGUI.Game.CoinBags.Container.BeachBall.Full.Visible then
+        if targetCoin and player.PlayerGui.MainGUI.Game.CoinBags.Container.Candy.Visible and not player.PlayerGui.MainGUI.Game.CoinBags.Container.Candy.Full.Visible then
             currentCharacter:SetPrimaryPartCFrame(targetCoin.CFrame * CFrame.new(0, 4, 0))
             task.wait(0.6)
             currentCharacter:SetPrimaryPartCFrame(anchorPart.CFrame + Vector3.new(0, 5, 0))

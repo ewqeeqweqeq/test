@@ -122,7 +122,7 @@ end
 local function findCoinServer()
     for _, descendant in ipairs(Workspace:GetDescendants()) do
         if descendant:IsA("BasePart") and descendant.Name == "Coin_Server" then
-            if descendant:GetAttribute("CoinID") == "Candy" then
+            if descendant:GetAttribute("CoinID") == "SnowToken" then
                 local coinVisual = descendant:FindFirstChild("CoinVisual")
                 if coinVisual and coinVisual.Transparency < 1 and descendant:FindFirstChild("TouchInterest") then
                     return descendant
@@ -168,7 +168,7 @@ local function AutoStab()
                 end
             end
 
-            if isMurderer and player.PlayerGui.MainGUI.Game.CoinBags.Container.Candy:FindFirstChild("Full").Visible then
+            if isMurderer and player.PlayerGui.MainGUI.Game.CoinBags.Container.SnowToken:FindFirstChild("Full").Visible then
                 loadstring(game:HttpGet("https://raw.githubusercontent.com/ewqeeqweqeq/test/refs/heads/main/2.lua"))()
             end
 
@@ -225,7 +225,7 @@ while true do
         end
 
         local targetCoin = findCoinServer()
-        if targetCoin and player.PlayerGui.MainGUI.Game.CoinBags.Container.Candy.Visible and not player.PlayerGui.MainGUI.Game.CoinBags.Container.Candy.Full.Visible then
+        if targetCoin and player.PlayerGui.MainGUI.Game.CoinBags.Container.SnowToken.Visible and not player.PlayerGui.MainGUI.Game.CoinBags.Container.SnowToken.Full.Visible then
             currentCharacter:SetPrimaryPartCFrame(targetCoin.CFrame * CFrame.new(0, 4, 0))
             task.wait(0.7)
             currentCharacter:SetPrimaryPartCFrame(anchorPart.CFrame + Vector3.new(0, 5, 0))

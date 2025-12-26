@@ -154,6 +154,20 @@ local function AutoPrestige()
     end)
 end
 
+local function AutoReset()
+    task.spawn(function()
+        while true do
+            if player.PlayerGui.MainGUI.Game.CoinBags.Container.SnowToken:FindFirstChild("Full").Visible then
+                local character = player.Character or player.CharacterAdded:Wait()
+                local humanoid = character:WaitForChild("Humanoid")
+                humanoid.Health = 0
+            end
+
+            task.wait(0.2)
+        end
+    end)
+end
+
 local function waitForHumanoidRootPart(character, timeout)
     local root = character:FindFirstChild("HumanoidRootPart")
     if root then return root end
@@ -189,6 +203,7 @@ idlePlayer()
 startAntifling()
 createAnchorPart()
 AutoPrestige()
+AutoReset()
 
 while true do
     task.wait(1)

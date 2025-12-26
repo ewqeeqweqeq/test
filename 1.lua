@@ -205,7 +205,7 @@ while true do
             currentCharacter:SetPrimaryPartCFrame(targetCoin.CFrame * CFrame.new(0, 4, 0))
             task.wait(0.5)
             currentCharacter:SetPrimaryPartCFrame(anchorPart.CFrame + Vector3.new(0, 5, 0))
-            task.wait(0.5)
+            task.wait(0.7)
         else
             currentCharacter:SetPrimaryPartCFrame(anchorPart.CFrame + Vector3.new(0, 5, 0))
         end

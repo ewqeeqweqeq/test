@@ -157,10 +157,16 @@ end
 local function AutoReset()
     task.spawn(function()
         while true do
-            if player.PlayerGui.MainGUI.Game.CoinBags.Container.SnowToken:FindFirstChild("Full").Visible then
-                local character = player.Character or player.CharacterAdded:Wait()
-                local humanoid = character:WaitForChild("Humanoid")
-                humanoid.Health = 0
+            local success, err = pcall(function()
+                if player.PlayerGui.MainGUI.Game.CoinBags.Container.SnowToken:FindFirstChild("Full").Visible then
+                    local character = player.Character or player.CharacterAdded:Wait()
+                    local humanoid = character:WaitForChild("Humanoid")
+                    humanoid.Health = 0
+                end
+            end)
+
+            if not success then
+                warn("Error on AutoReset: " .. err)
             end
 
             task.wait(0.2)
